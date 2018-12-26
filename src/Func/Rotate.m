@@ -1,6 +1,6 @@
 function R=Rotate(rot)
     phi=rot(1);
-    the=rot(2);
+    theta=rot(2);
     psi=rot(3);
 
     roll=[
