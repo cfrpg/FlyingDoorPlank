@@ -11,8 +11,6 @@ P.Surf(1).Cma=1.5;        % C_m_alpha
 P.Surf(1).M=50;         % Blending factor
 P.Surf(1).a0=0.3;       % Stall point
 
-
-
 % Left wing
 P.Surf(2).b=1;          % Span
 P.Surf(2).c=0.4;        % Chord
