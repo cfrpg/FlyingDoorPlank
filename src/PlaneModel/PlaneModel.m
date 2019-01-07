@@ -61,6 +61,7 @@ P.CoG=[0;0;0];
 
 % Constants
 P.g=9.80665;
+P.rho=1.225;
 
 % Move origin to CoG
 n=size(P.Surf,2);
