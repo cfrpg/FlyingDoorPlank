@@ -9,7 +9,8 @@ function DrawPlane(P,u)
     theta=state(8);
     psi=state(9);
 
-    fs=2;
+    fs=1000;
+    ps=300;
     persistent hplane;    
     R=[        
         0 1 0;
@@ -17,7 +18,7 @@ function DrawPlane(P,u)
         0 0 -1;
         ];
     [V,F,C]=planeModel(P,ctrl);
-    V=Rotate([phi;theta;psi])'*V';
+    V=Rotate([phi;theta;psi])'*V'*ps;
     V=Translate(V,[pn;pe;pd]);
     V=R*V;
     
