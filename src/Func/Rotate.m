@@ -15,5 +15,6 @@ function R=Rotate(rot)
         cos(psi), sin(psi), 0;
         -sin(psi), cos(psi), 0;
         0, 0, 1];
-    R=yaw*pitch*roll;   
+    %R=yaw*pitch*roll;
+    R=roll*pitch*yaw;
 end

@@ -50,6 +50,11 @@ P.Surf(4).M=50;         % Blending factor
 P.Surf(4).a0=0.3;       % Stall point
 
 % Prop parameter
+P.Sprop=0.2027;
+P.Cprop=1;
+P.Kmotor=80;
+P.Ko=0; %angular vel factor
+P.Ktp=0;
 
 
 % Inertial parameter
@@ -59,6 +64,9 @@ P.Iy=1.1;
 P.Iz=1.7;
 P.Ixz=0.12;
 P.CoG=[0.5;0;0];
+
+%Assistant parameter
+P.SurfCnt=size(P.Surf,2);
 
 % Constants
 P.g=9.80665;
