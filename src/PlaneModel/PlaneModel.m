@@ -81,6 +81,6 @@ end
 %Initial state
 P.x0= [
     0;0;0;  %ned
-    20;0;0;  %uvw
-    0;1/180*pi;0;  %euler
+    30;0;0;  %uvw
+    0;2/180*pi;0;  %euler
     0;0;0]; %pqr

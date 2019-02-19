@@ -14,6 +14,7 @@ function out = Sensor(P,state)
 
     Va=norm([u,v,w]);
     alt=-pd;
+   
 
     out=[Va;alt];
 end

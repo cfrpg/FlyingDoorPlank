@@ -28,16 +28,16 @@ function out = GetForces(P,u)
     
     n=P.SurfCnt;    
     for i = 1:n
-        Vel=[u;v;w]+cross([p;q;r],P.Surf(i).Pos);
-        T=Rotate(P.Surf(i).Rot)*Rotate([0,ctrl(i+1),0]);
+        Vel=[u;v;w];%-cross([p;q;r],P.Surf(i).Pos);
+        T=(Rotate(-P.Surf(i).Rot)*Rotate([0,-ctrl(i+1),0]));
         Vel=T'*Vel;
         [Fi,Mi]=GetSurfaceForces(P.Surf(i),Vel,P.rho);       
         Fi=T*Fi;
         Mi=T*Mi;
         Mi=Mi+cross(Fi,P.Surf(i).Pos);
         F=F+Fi;
-        M=M+Mi;
-    end   
+        %M=M+Mi;
+    end
 
     out=[F;M];
 end
