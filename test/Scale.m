@@ -16,21 +16,7 @@ function out = Scale(P,u)
     r     = state(12);
 
     g=9.80665;
-    
-    roll=[
-        1 0 0;
-        0 cos(phi) sin(phi);
-        0 -sin(phi) cos(phi)];
-    pitch=[
-        cos(theta), 0, -sin(theta);
-        0, 1, 0;
-        sin(theta), 0, cos(theta)];
-    yaw=[
-        cos(psi), sin(psi), 0;
-        -sin(psi), cos(psi), 0;
-        0, 0, 1];    
-    Rvb=roll*pitch*yaw;
-   
+          
     %F=Rvb*[0;0;P.mass*g];
     F=[0;0;0];
     M=[0;0;0];
@@ -43,29 +29,14 @@ function out = Scale(P,u)
     u=10*cos(theta);
     v=0;
     w=10*sin(theta);
-%     for i = 1:n
-%         Va=[u;v;w];
-%         Va=(Rotate(-P.Surf(i).Rot)*Rotate([0,-ctrl(i+1),0]))'*Va;
-%         [Fi,Mi]=GetSurfaceForces(P.Surf(i),Va,P.rho);
-%         Fs(i,:)=Fi;
-%         Ms(i,:)=Mi;
-%         %Fi=Rotate(P.Surf(i).Rot)*Rotate([0,-ctrl(i+1),0])*Fi;
-%         %Mi=Rotate(P.Surf(i).Rot)*Rotate([0,-ctrl(i+1),0])*Mi;
-%         Fi=Rotate(-P.Surf(i).Rot)*Rotate([0,-ctrl(i+1),0])*Fi;
-%         Mi=Rotate(-P.Surf(i).Rot)*Rotate([0,-ctrl(i+1),0])*Mi;
-%         Mi=Mi+cross(Fi,P.Surf(i).Pos);
-%         Fs2(i,:)=Fi;
-%         Ms2(i,:)=Mi;
-%         F=F+Fi;
-%         M=M+Mi;
-%     end
+
     alpha=-theta;
     T1=[cos(alpha),-sin(alpha);sin(alpha),cos(alpha)];
     i=1;
     Va=[10;0;0];
-    T=(Rotate(-P.Surf(i).Rot)*Rotate([0,-ctrl(i+1),0]));
+    T=(Rotate([0,ctrl(i+1),0])*Rotate(P.Surf(i).Rot));
     Va=T'*Va;
-    [Fi,Mi]=GetSurfaceForces(P.Surf(i),Va,P.rho);
+    [Fi,Mi,D1]=GetSurfaceForces(P.Surf(i),Va,P.rho);
     Fs(i,:)=Fi;
     Ms(i,:)=Mi;    
     Fi=T*Fi;
@@ -77,23 +48,24 @@ function out = Scale(P,u)
     M=M+Mi;
     
     i=2;
-    Va=[u;v;w];
-    T=(Rotate(-P.Surf(i).Rot)*Rotate([0,-ctrl(i+1),0]));
+    Va=Rotate([phi,theta,psi])'*[10;0;0];
+    T=(Rotate([0,ctrl(i+1),0])*Rotate(P.Surf(i).Rot));
     Va=T'*Va;
-    [Fi,Mi]=GetSurfaceForces(P.Surf(i),Va,P.rho);
+    [Fi,Mi,D2]=GetSurfaceForces(P.Surf(i),Va,P.rho);
     Fs(i,:)=Fi;
     Ms(i,:)=Mi;   
     Fi=T*Fi;
     Mi=T*Mi;
     
-    Fxz=[cos(alpha),-sin(alpha);sin(alpha),cos(alpha)]*[Fi(1);Fi(3)];
-    Fi(1)=Fxz(1);
-    Fi(3)=Fxz(2);   
+    %Fxz=[cos(alpha),-sin(alpha);sin(alpha),cos(alpha)]*[Fi(1);Fi(3)];
+    %Fi(1)=Fxz(1);
+    %Fi(3)=Fxz(2);   
+    Fi=Rotate([phi,theta,psi])*Fi;
     Fs2(i,:)=Fi;
     Ms2(i,:)=Mi;
     F=F+Fi;
     M=M+Mi;
     %gravity
-    D1=[0,0,0];
-    out=[Fs2;Ms2;D1;D1];   
+    %D1=[0,0,0];
+    out=[Fs2;Ms2;D1;D2];   
 end

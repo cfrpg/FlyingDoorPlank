@@ -10,7 +10,7 @@ function DrawPlane(P,u)
     psi=state(9);
 
     fs=1000;
-    ps=300;
+    ps=100;
     persistent hplane;    
     R=[        
         0 1 0;
@@ -18,7 +18,7 @@ function DrawPlane(P,u)
         0 0 -1;
         ];
     [V,F,C]=planeModel(P,ctrl);
-    V=Rotate([phi;theta;psi])'*V'*ps;
+    V=Rotate([phi;theta;psi])*V'*ps;%向量旋转
     V=Translate(V,[pn;pe;pd]);
     V=R*V;
     
@@ -49,7 +49,7 @@ function [V,F,C]=planeModel(P,ctrl)
             -3*P.Surf(i).c/4,P.Surf(i).b/2,0;
             -3*P.Surf(i).c/4,-P.Surf(i).b/2,0;
         ];
-        sp=(Rotate(P.Surf(i).Rot)*Rotate([0,-ctrl(i+1),0])*sp')';
+        sp=(Rotate(P.Surf(i).Rot)*Rotate([0,ctrl(i+1),0])*sp')';%向量旋转
         sp=Translate(sp',P.Surf(i).Pos)';
         V=[V;sp];
         F(i,:)=[4*i-3,4*i-2,4*i-1,4*i];

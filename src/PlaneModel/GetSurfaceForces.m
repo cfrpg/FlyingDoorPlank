@@ -21,13 +21,14 @@ function [F,M] = GetSurfaceForces(S,V,rho)
     Cm=(1-s)*cma*alpha_p+s*(-0.5*sin(alpha)*(0.7*cos(alpha)+1));
     %Fxz=[q*CD;q*CL];  
     %alpha=-alpha;
-    Fxz=[cos(alpha),-sin(alpha);sin(alpha),cos(alpha)]*[-q*CD;-q*CL];
+    %Fxz=[cos(alpha),-sin(alpha);sin(alpha),cos(alpha)]*[-q*CD;-q*CL];
     % Drag
-    F(1)=Fxz(1);
+    F(1)=-q*CD;
     % Side force
     F(2)=0;
     % Lift
-    F(3)=Fxz(2);
+    F(3)=-q*CL;
+    F=Rotate([0,alpha,0])'*F;
 
     % Roll moment
     M(1)=0;
@@ -35,7 +36,7 @@ function [F,M] = GetSurfaceForces(S,V,rho)
     M(2)=q*Cm;
     % Yaw moment
     M(3)=0;
-   
+    D=[alpha,alpha_p,0];
 end
 
 function s = sigma(a,a0,m)

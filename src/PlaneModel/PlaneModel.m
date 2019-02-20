@@ -41,7 +41,7 @@ P.Surf(3).a0=0.3;       % Stall point
 P.Surf(4).b=0.6;        % Span
 P.Surf(4).c=0.4;        % Chord
 P.Surf(4).Pos=[-1.5;0;-P.Surf(4).b/2];  % Position
-P.Surf(4).Rot=[-pi/2;0;0];  % Rotation
+P.Surf(4).Rot=[pi/2;0;0];  % Rotation
 P.Surf(4).CLa=5;        % C_L_alpha
 P.Surf(4).e=0.9;        % Efficiency factor
 P.Surf(4).AR=P.Surf(1).b*2/P.Surf(1).c; %Aspect ratio
@@ -81,6 +81,6 @@ end
 %Initial state
 P.x0= [
     0;0;0;  %ned
-    30;0;0;  %uvw
+    20;0;0;  %uvw
     0;2/180*pi;0;  %euler
     0;0;0]; %pqr
