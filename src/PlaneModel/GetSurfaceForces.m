@@ -1,4 +1,4 @@
-function [F,M] = GetSurfaceForces(S,V,rho)
+function [F,M,D] = GetSurfaceForces(S,V,rho)
     Va=sqrt(V(1)*V(1)+V(3)*V(3));
     alpha=atan2(V(3),V(1));
     q=0.5*rho*Va*Va*S.b*S.c;
@@ -27,7 +27,7 @@ function [F,M] = GetSurfaceForces(S,V,rho)
     % Side force
     F(2)=0;
     % Lift
-    F(3)=-q*CL;
+    F(3)=q*CL;
     F=Rotate([0,alpha,0])'*F;
 
     % Roll moment
@@ -36,7 +36,7 @@ function [F,M] = GetSurfaceForces(S,V,rho)
     M(2)=q*Cm;
     % Yaw moment
     M(3)=0;
-    D=[CL,CD,0];
+    D=[CL,CD,alpha];
 end
 
 function s = sigma(a,a0,m)

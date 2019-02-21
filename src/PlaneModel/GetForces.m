@@ -18,7 +18,7 @@ function out = GetForces(P,u)
     g=9.80665; 
     Va=norm([u,v,w]);
     %Gravity
-    F=Rotate([phi;theta;psi])*[0;0;P.mass*g];
+    F=Rotate([phi;theta;psi])'*[0;0;P.mass*g];
     %F=[0;0;0];
     %Propulsion force
     %F(1)=F(1)+0.5*P.rho*P.Sprop*P.Cprop*((P.Kmotor*ctrl(1))^2);
@@ -31,13 +31,14 @@ function out = GetForces(P,u)
     for i = 1:n
         Vel=[u;v;w]+cross([p;q;r],-P.Surf(i).Pos);
         T=(Rotate([0,ctrl(i+1),0])*Rotate(P.Surf(i).Rot));
+        T=Rotate(P.Surf(i).Rot)'*Rotate([0,ctrl(i+1),0])';
         Vel=T'*Vel;
         [Fi,Mi]=GetSurfaceForces(P.Surf(i),Vel,P.rho);        
         Fi=T*Fi;
         Mi=T*Mi;
         Mi=Mi+cross(Fi,P.Surf(i).Pos);
         F=F+Fi;
-        %M=M+Mi;
+        M=M+Mi;
     end
 
     out=[F;M];
