@@ -17,7 +17,7 @@ function [F,M] = GetSurfaceForces(S,V,rho)
     s=sigma(alpha,S.a0,S.M);    
     %s=0;
     CL=(1-s)*S.CLa*alpha_p+s*sin(2*alpha);
-    CD=(1-s)*(CL*CL)/(pi*S.e*S.AR)+s*2*sin(alpha)^2;
+    CD=(1-s)*(CL*CL)/(pi*S.e*S.AR)+1*2*sin(alpha)^2;
     Cm=(1-s)*cma*alpha_p+s*(-0.5*sin(alpha)*(0.7*cos(alpha)+1));
     %Fxz=[q*CD;q*CL];  
     %alpha=-alpha;
@@ -36,7 +36,7 @@ function [F,M] = GetSurfaceForces(S,V,rho)
     M(2)=q*Cm;
     % Yaw moment
     M(3)=0;
-    D=[alpha,alpha_p,0];
+    D=[CL,CD,0];
 end
 
 function s = sigma(a,a0,m)

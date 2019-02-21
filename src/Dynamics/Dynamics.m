@@ -87,7 +87,7 @@ function sys=mdlDerivatives(t,x,uu, mass,Jx,Jy,Jz,Jxz)
     res=[r*v-q*w;p*w-r*u;q*u-p*v]+[fx;fy;fz]/mass;
     
     
-    udot = res(1);    
+    udot = res(1);
     vdot = res(2);    
     wdot = res(3);
     
