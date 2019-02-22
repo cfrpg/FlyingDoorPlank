@@ -10,7 +10,7 @@ P.Surf(1).e=0.9;        % Efficiency factor
 P.Surf(1).AR=P.Surf(1).b*2/P.Surf(1).c; %Aspect ratio
 P.Surf(1).Cma=1.5;        % C_m_alpha
 P.Surf(1).M=50;         % Blending factor
-P.Surf(1).a0=0.3;       % Stall point
+P.Surf(1).a0=0.5;       % Stall point
 
 % Left wing
 P.Surf(2).b=1;          % Span
@@ -22,7 +22,7 @@ P.Surf(2).e=0.9;        % Efficiency factor
 P.Surf(2).AR=P.Surf(1).b*2/P.Surf(1).c; %Aspect ratio
 P.Surf(2).Cma=1.5;        % C_m_alpha
 P.Surf(2).M=50;         % Blending factor
-P.Surf(2).a0=0.3;       % Stall point
+P.Surf(2).a0=0.5;       % Stall point
 
 
 % HTail
@@ -35,7 +35,7 @@ P.Surf(3).e=0.9;        % Efficiency factor
 P.Surf(3).AR=P.Surf(1).b/P.Surf(1).c; %Aspect ratio
 P.Surf(3).Cma=1.5;        % C_m_alpha
 P.Surf(3).M=50;         % Blending factor
-P.Surf(3).a0=0.3;       % Stall point
+P.Surf(3).a0=0.5;       % Stall point
 
 % VTail
 P.Surf(4).b=0.6;        % Span
@@ -47,7 +47,7 @@ P.Surf(4).e=0.9;        % Efficiency factor
 P.Surf(4).AR=P.Surf(1).b*2/P.Surf(1).c; %Aspect ratio
 P.Surf(4).Cma=1.5;        % C_m_alpha
 P.Surf(4).M=50;         % Blending factor
-P.Surf(4).a0=0.3;       % Stall point
+P.Surf(4).a0=0.5;       % Stall point
 
 % Prop parameter
 P.Sprop=0.2027;
@@ -81,6 +81,6 @@ end
 %Initial state
 P.x0= [
     0;0;0;  %ned
-    20;0;0;  %uvw
+    25;0;0;  %uvw
     0;0/180*pi;0;  %euler
     0;0;0]; %pqr

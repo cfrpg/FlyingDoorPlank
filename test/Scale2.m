@@ -1,7 +1,6 @@
-function out = GetForces(P,u)
-    t=u(1);
-    state=u(2:13);
-    ctrl=u(14:P.SurfCnt+14);
+function out = Scale2(P,u)   
+    state=u(1:12);
+    ctrl=u(13:P.SurfCnt+13);
     pn    = state(1);
     pe    = state(2);
     pd    = state(3);
@@ -29,7 +28,8 @@ function out = GetForces(P,u)
     
     n=P.SurfCnt;    
     for i = 1:n
-        Vel=[u;v;w]+cross([p;q;r],P.Surf(i).Pos);
+        %Vel=[u;v;w]+cross([p;q;r],P.Surf(i).Pos);
+        Vel=Rotate([phi,theta,psi])'*[u;v;w]+Rotate([p,q,r])*[10;0;0];
         T=Rotate([0,ctrl(i+1),0])*Rotate(P.Surf(i).Rot);
         %T=Rotate(P.Surf(i).Rot)'*Rotate([0,ctrl(i+1),0])';
         Vel=T*Vel;
@@ -41,6 +41,8 @@ function out = GetForces(P,u)
         F=F+Fi;
         M=M+Mi;
     end
+    Fv=Rotate([phi;theta;psi])*F;
+    D=[0,0,0];
+    out=[F';Fv';M';D];
 
-    out=[F;M];
 end
